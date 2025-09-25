@@ -1,0 +1,50 @@
+body {
+    background-color: #011F3F;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 5%;
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+.container {
+    height: 60vh;
+    width: 50%;
+    margin: auto;
+    display: block; /*tutto cio che è contenuto (i div) si dispongono uno sotto l'altro*/
+}
+
+.button {
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+    margin: 25px;
+    border: 10px solid black;
+    border-radius: 20%;
+}
+
+#green-btn {
+    background-color: green;
+}
+
+#yellow-btn {
+    background-color: yellow;
+}
+
+#blue-btn {
+    background-color: blue;
+}
+
+#red-btn {
+    background-color: red;
+}
+
+.pressed {
+  box-shadow: 0 0px 20px 0 #DBEDF3;
+  opacity: 0.4;
+}
