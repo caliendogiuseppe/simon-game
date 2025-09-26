@@ -1,5 +1,6 @@
 let currentLevel = 1
 let numbersExtracted = []
+let userSequence = []
 let gameStarted = false
 
 const GREEN = 1
@@ -41,6 +42,8 @@ $(document).keypress((event) => {
 
         generateNewSound()
         startSequence()
+
+        userTurn()
     }
 })
 
@@ -102,7 +105,53 @@ const clickButton = (n) => {
 }
 
 const userTurn = () => {
-    
+    $("#green-btn").click(() => {
+        clickButton(GREEN)
+        userSequence.push(1)
+
+        for (let i = 0; i < numbersExtracted.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                break;
+            }
+        }
+    });
+
+    $("#red-btn").click(() => {
+        clickButton(RED)
+        userSequence.push(2)
+
+        for (let i = 0; i < numbersExtracted.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                break;
+            }
+        }
+    });
+
+    $("#yellow-btn").click(() => {
+        clickButton(YELLOW)
+        userSequence.push(3)
+
+        for (let i = 0; i < numbersExtracted.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                break;
+            }
+        }
+    });
+
+    $("#blue-btn").click(() => {
+        clickButton(BLUE)
+        userSequence.push(4)
+
+        for (let i = 0; i < numbersExtracted.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                break;
+            }
+        }
+    });
 }
 
 const deactivateAllButtons = () => {
@@ -117,4 +166,9 @@ const activateAllButtons = () => {
     $("#red-btn").removeClass("disabled")
     $("#yellow-btn").removeClass("disabled")
     $("#blue-btn").removeClass("disabled")
+}
+
+const gameOver = () => {
+    $("body").css("background-color", "red") 
+    $("h1").text("Game over :(")
 }
