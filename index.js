@@ -40,12 +40,31 @@ $(document).keypress((event) => {
         $("h1").text("Livello 1")
 
         generateNewSound()
+        startSequence()
     }
 })
 
 const generateNewSound = () => {
     randomNumber = Math.trunc(Math.random() * (5 - 1) + 1) // numero randomico da 1 a 4
     numbersExtracted.push(randomNumber) //inserisco il numero randomico nell'array
+}
+
+// starto la sequenza di generazione automatica dei suoni (in base all'array dei numeri generati casualmente)
+const startSequence = () => {
+    //disattivo i bottoni
+    deactivateAllButtons()
+
+    // attendo 0.5 secondi prima di startare
+    setTimeout(() => {
+        for (item of numbersExtracted) {
+            clickButton(item)
+        }
+
+        // riattivo i bottoni
+        activateAllButtons()
+    }, 500)
+    
+    
 }
 
 // animazioni che partono (suono + effetto click) quando clicco uno dei 4 pulsanti
@@ -80,4 +99,22 @@ const clickButton = (n) => {
     
     // suono 
     audio.play();
+}
+
+const userTurn = () => {
+    
+}
+
+const deactivateAllButtons = () => {
+    $("#green-btn").addClass("disabled")
+    $("#red-btn").addClass("disabled")
+    $("#yellow-btn").addClass("disabled")
+    $("#blue-btn").addClass("disabled")
+}
+
+const activateAllButtons = () => {
+    $("#green-btn").removeClass("disabled")
+    $("#red-btn").removeClass("disabled")
+    $("#yellow-btn").removeClass("disabled")
+    $("#blue-btn").removeClass("disabled")
 }

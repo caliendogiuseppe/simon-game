@@ -44,6 +44,10 @@ h1 {
     background-color: red;
 }
 
+.disabled {
+    pointer-events: none;
+}
+
 .pressed {
   box-shadow: 0 0px 20px 0 #DBEDF3;
   opacity: 0.4;
