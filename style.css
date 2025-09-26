@@ -1,3 +1,9 @@
+html { /** per evitare di evidenziare i div */
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
 body {
     background-color: #011F3F;
     text-align: center;

@@ -18,18 +18,102 @@ const BLUE = 4
 // LISTENER
 $("#green-btn").click(() => {
     clickButton(GREEN)
+
+    if (gameStarted) {
+        userSequence.push(GREEN)
+
+        for (let i = 0; i < userSequence.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                return;
+            }
+        }
+
+        // se la lunghezza dell'array della sequenza inserita dall'utente è uguale alla lunghezza dell'array dei numeri estratti (l'utente ha fatto tutto giusto), si passa al livello successivo
+        if (userSequence.length == numbersExtracted.length) {
+            currentLevel ++
+            userSequence = [] //resetto la sequenza utente
+
+            changeLevelInTitle()
+            generateNewSound()
+            startSequence()
+        }
+    }
 });
 
 $("#red-btn").click(() => {
     clickButton(RED)
+
+    if (gameStarted) {
+        userSequence.push(RED)
+
+        for (let i = 0; i < userSequence.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                return;
+            }
+        }
+
+        // se la lunghezza dell'array della sequenza inserita dall'utente è uguale alla lunghezza dell'array dei numeri estratti (l'utente ha fatto tutto giusto), si passa al livello successivo
+        if (userSequence.length == numbersExtracted.length) {
+            currentLevel ++
+            userSequence = [] //resetto la sequenza utente
+
+            changeLevelInTitle()
+            generateNewSound()
+            startSequence()
+        }
+    }
 });
 
 $("#yellow-btn").click(() => {
     clickButton(YELLOW)
+
+    if (gameStarted) {
+        userSequence.push(YELLOW)
+
+        for (let i = 0; i < userSequence.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                return;
+            }
+        }
+
+        // se la lunghezza dell'array della sequenza inserita dall'utente è uguale alla lunghezza dell'array dei numeri estratti (l'utente ha fatto tutto giusto), si passa al livello successivo
+        if (userSequence.length == numbersExtracted.length) {
+            currentLevel ++
+            userSequence = [] //resetto la sequenza utente
+
+            changeLevelInTitle()
+            generateNewSound()
+            startSequence()
+        }
+    }
 });
 
 $("#blue-btn").click(() => {
     clickButton(BLUE)
+
+    if (gameStarted) {
+        userSequence.push(BLUE)
+
+        for (let i = 0; i < userSequence.length; i++) {
+            if (userSequence[i] !== numbersExtracted[i]) {
+                gameOver();
+                return;
+            }
+        }
+
+        // se la lunghezza dell'array della sequenza inserita dall'utente è uguale alla lunghezza dell'array dei numeri estratti (l'utente ha fatto tutto giusto), si passa al livello successivo
+        if (userSequence.length == numbersExtracted.length) {
+            currentLevel ++
+            userSequence = [] //resetto la sequenza utente
+
+            changeLevelInTitle()
+            generateNewSound()
+            startSequence()
+        }
+    }
 });
 
 // quando premo a starto il gioco
@@ -38,12 +122,10 @@ $(document).keypress((event) => {
 
     if ((key == 'a' || key == 'A') && !gameStarted) {
         gameStarted = true
-        $("h1").text("Livello 1")
-
+        
+        changeLevelInTitle()
         generateNewSound()
         startSequence()
-
-        userTurn()
     }
 })
 
@@ -57,10 +139,12 @@ const startSequence = () => {
     //disattivo i bottoni
     deactivateAllButtons()
 
-    // attendo 0.5 secondi prima di startare
+    // attendo 0.8 secondi prima di startare
     setTimeout(() => {
-        for (item of numbersExtracted) {
-            clickButton(item)
+        for (let i = 0; i<numbersExtracted.length; i++) {
+            setTimeout(()=>{
+                clickButton(numbersExtracted[i])
+            }, 600 * i)
         }
 
         // riattivo i bottoni
@@ -104,54 +188,8 @@ const clickButton = (n) => {
     audio.play();
 }
 
-const userTurn = () => {
-    $("#green-btn").click(() => {
-        clickButton(GREEN)
-        userSequence.push(1)
-
-        for (let i = 0; i < numbersExtracted.length; i++) {
-            if (userSequence[i] !== numbersExtracted[i]) {
-                gameOver();
-                break;
-            }
-        }
-    });
-
-    $("#red-btn").click(() => {
-        clickButton(RED)
-        userSequence.push(2)
-
-        for (let i = 0; i < numbersExtracted.length; i++) {
-            if (userSequence[i] !== numbersExtracted[i]) {
-                gameOver();
-                break;
-            }
-        }
-    });
-
-    $("#yellow-btn").click(() => {
-        clickButton(YELLOW)
-        userSequence.push(3)
-
-        for (let i = 0; i < numbersExtracted.length; i++) {
-            if (userSequence[i] !== numbersExtracted[i]) {
-                gameOver();
-                break;
-            }
-        }
-    });
-
-    $("#blue-btn").click(() => {
-        clickButton(BLUE)
-        userSequence.push(4)
-
-        for (let i = 0; i < numbersExtracted.length; i++) {
-            if (userSequence[i] !== numbersExtracted[i]) {
-                gameOver();
-                break;
-            }
-        }
-    });
+const changeLevelInTitle = () => {
+    $("h1").text("Livello " + currentLevel)
 }
 
 const deactivateAllButtons = () => {
@@ -169,6 +207,8 @@ const activateAllButtons = () => {
 }
 
 const gameOver = () => {
+    gameStarted = false;
     $("body").css("background-color", "red") 
     $("h1").text("Game over :(")
+    deactivateAllButtons()
 }
