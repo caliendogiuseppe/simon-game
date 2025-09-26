@@ -2,6 +2,11 @@ let currentLevel = 1
 let numbersExtracted = []
 let gameStarted = false
 
+const GREEN = 1
+const RED = 2
+const YELLOW = 3
+const BLUE = 4
+
 /**
  * 1 - verde
  * 2 - rosso
@@ -11,19 +16,19 @@ let gameStarted = false
 
 // LISTENER
 $("#green-btn").click(() => {
-    clickButton($("#green-btn"))
+    clickButton(GREEN)
 });
 
 $("#red-btn").click(() => {
-    clickButton($("#red-btn"))
+    clickButton(RED)
 });
 
 $("#yellow-btn").click(() => {
-    clickButton($("#yellow-btn"))
+    clickButton(YELLOW)
 });
 
 $("#blue-btn").click(() => {
-    clickButton($("#blue-btn"))
+    clickButton(BLUE)
 });
 
 // quando premo a starto il gioco
@@ -44,11 +49,35 @@ const generateNewSound = () => {
 }
 
 // animazioni che partono (suono + effetto click) quando clicco uno dei 4 pulsanti
-const clickButton = (button) => { //button = $("#green-btn") OPPURE $("#red-btn")
+const clickButton = (n) => { 
+    let button
+    let audio
+
+    switch(n) {
+        case 1:
+            button = $("#green-btn");
+            audio = new Audio('./sounds/green.mp3');
+            break;
+        case 2:
+            button = $("#red-btn");
+            audio = new Audio('./sounds/red.mp3');
+            break;
+        case 3:
+            button = $("#yellow-btn");
+            audio = new Audio('./sounds/yellow.mp3');
+            break;
+        case 4:
+            button = $("#blue-btn");
+            audio = new Audio('./sounds/blue.mp3');
+            break;
+    }
+
+    // effetto del tasto premuto
     button.addClass("pressed")
     setTimeout(() => {
         button.removeClass("pressed")
     }, 100  )
     
-
+    // suono 
+    audio.play();
 }
