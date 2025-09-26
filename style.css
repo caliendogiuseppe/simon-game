@@ -58,3 +58,7 @@ h1 {
   box-shadow: 0 0px 20px 0 #DBEDF3;
   opacity: 0.4;
 }
+
+.next-level-transition {
+    background-color: green;
+}

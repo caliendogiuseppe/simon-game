@@ -34,7 +34,7 @@ $("#green-btn").click(() => {
             currentLevel ++
             userSequence = [] //resetto la sequenza utente
 
-            changeLevelInTitle()
+            nextLevelTransition()
             generateNewSound()
             startSequence()
         }
@@ -59,7 +59,7 @@ $("#red-btn").click(() => {
             currentLevel ++
             userSequence = [] //resetto la sequenza utente
 
-            changeLevelInTitle()
+            nextLevelTransition()
             generateNewSound()
             startSequence()
         }
@@ -84,7 +84,7 @@ $("#yellow-btn").click(() => {
             currentLevel ++
             userSequence = [] //resetto la sequenza utente
 
-            changeLevelInTitle()
+            nextLevelTransition()
             generateNewSound()
             startSequence()
         }
@@ -109,7 +109,7 @@ $("#blue-btn").click(() => {
             currentLevel ++
             userSequence = [] //resetto la sequenza utente
 
-            changeLevelInTitle()
+            nextLevelTransition()
             generateNewSound()
             startSequence()
         }
@@ -136,22 +136,22 @@ const generateNewSound = () => {
 
 // starto la sequenza di generazione automatica dei suoni (in base all'array dei numeri generati casualmente)
 const startSequence = () => {
-    //disattivo i bottoni
-    deactivateAllButtons()
+    setTimeout(()=>{
+        //disattivo i bottoni
+        deactivateAllButtons()
 
-    // attendo 0.8 secondi prima di startare
-    setTimeout(() => {
-        for (let i = 0; i<numbersExtracted.length; i++) {
-            setTimeout(()=>{
-                clickButton(numbersExtracted[i])
-            }, 600 * i)
-        }
+        // attendo 0.8 secondi prima di startare
+        setTimeout(() => {
+            for (let i = 0; i<numbersExtracted.length; i++) {
+                setTimeout(()=>{
+                    clickButton(numbersExtracted[i])
+                }, 600 * i)
+            }
 
-        // riattivo i bottoni
-        activateAllButtons()
-    }, 500)
-    
-    
+            // riattivo i bottoni
+            activateAllButtons()
+        }, 1500)
+    })
 }
 
 // animazioni che partono (suono + effetto click) quando clicco uno dei 4 pulsanti
@@ -210,5 +210,25 @@ const gameOver = () => {
     gameStarted = false;
     $("body").css("background-color", "red") 
     $("h1").text("Game over :(")
+    const audio = new Audio('./sounds/wrong.mp3');
+    audio.play()
     deactivateAllButtons()
+}
+
+const nextLevelTransition = () => { //changeLevelInTitle 
+    //setto sfondo e scritta della vittoria
+    $("body").addClass("next-level-transition")
+
+    // audio della vittoria
+    const audio = new Audio('./sounds/win.m4a');
+    audio.play()
+
+    //cambio titolo in "win"
+    $("h1").text("WIN 🤩")
+
+    //attendo un secondo per celebrare la vittoria del livello
+    setTimeout(() => {
+        $("h1").text("Livello " + currentLevel)
+        $("body").removeClass("next-level-transition")
+    }, 1000)
 }
