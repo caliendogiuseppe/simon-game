@@ -62,3 +62,7 @@ h1 {
 .next-level-transition {
     background-color: green;
 }
+
+.game-over {
+    background-color: red;
+}

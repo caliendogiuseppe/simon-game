@@ -123,6 +123,7 @@ $(document).keypress((event) => {
     if ((key == 'a' || key == 'A') && !gameStarted) {
         gameStarted = true
         
+        $("body").removeClass("game-over") 
         changeLevelInTitle()
         generateNewSound()
         startSequence()
@@ -208,8 +209,14 @@ const activateAllButtons = () => {
 
 const gameOver = () => {
     gameStarted = false;
-    $("body").css("background-color", "red") 
-    $("h1").text("Game over :(")
+    numbersExtracted = [] //svuoto la sequenza di numeri estratti
+    userSequence = [] //svuoto la sequenza di numeri tentati dall'utente
+
+    $("body").addClass("game-over") 
+    $("h1").html("Game over 😢 - Livello " + currentLevel + "<br>Premi A per rigiocare")
+
+    currentLevel = 1 // resetto il livello corrente
+
     const audio = new Audio('./sounds/wrong.mp3');
     audio.play()
     deactivateAllButtons()
